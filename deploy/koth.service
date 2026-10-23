@@ -1,0 +1,18 @@
+# cp deploy/koth*.service ~/.config/systemd/user/ && systemctl --user daemon-reload
+# systemctl --user enable --now koth koth-tunnel
+[Unit]
+Description=KotH board
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/projects/koth-board
+ExecStart=%h/.local/bin/uv run --python 3.12 app.py
+Restart=always
+RestartSec=3
+# 열린 연결을 오래 기다리지 않고 바로 재시작
+TimeoutStopSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=default.target

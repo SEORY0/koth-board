@@ -1,0 +1,14 @@
+# 앱과 따로 돌린다. 이 서비스를 재시작하면 외부 주소가 바뀐다.
+# 주소 확인: curl -s 127.0.0.1:8788/quicktunnel
+[Unit]
+Description=KotH board quick tunnel
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/cloudflared tunnel --no-autoupdate --metrics 127.0.0.1:8788 --url http://127.0.0.1:8787
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,5 @@
+.env
+data/
+.testdata/
+.shots/*.png
+__pycache__/
